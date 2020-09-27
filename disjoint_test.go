@@ -25,3 +25,33 @@ func TestNewDSet(t *testing.T) {
 		})
 	}
 }
+
+type AddExpected struct {
+	value    interface{}
+	expected bool
+}
+
+func TestAdd(t *testing.T) {
+	var tests = []struct {
+		elements []AddExpected
+	}{
+		{[]AddExpected{
+			AddExpected{1, true},
+			AddExpected{1, false},
+		},
+		},
+	}
+	for _, tt := range tests {
+		testname := fmt.Sprintf("%#v", tt.elements)
+		t.Run(testname, func(t *testing.T) {
+			val, _ := NewDSet(make([]interface{}, 0))
+			for _, element := range tt.elements {
+				result := val.Add(element.value)
+				if result != element.expected {
+					t.Errorf("Expected response %t but got %t for element %d", element.expected, result, element.value)
+				}
+
+			}
+		})
+	}
+}
