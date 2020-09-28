@@ -1,6 +1,6 @@
 // Package disjoint contains a UnionFind (Disjoint-set) data structure.
 // It is proven that the  running amortized time for `m` calls to to `FindPartition`
-// and `Merge` on a set of `n` elements will require `O(m * Ak(n))` array accesss.
+// and `Merge` on a set of `n` elements will require `O(m * Ak(n))` array access.
 // Ak(n) is an approximation of the inverse Ackermann function, growing
 // so slowly that it can be considered a constant.
 package disjoint
@@ -74,7 +74,7 @@ func (ds *DSet) FindPartition(element interface{}) (interface{}, bool) {
 	return root, true
 }
 
-//Merge merges the subsets contianing the two elements passed.
+//Merge merges the subsets containing the two elements passed.
 //True is returned if the two subsets are merged, false
 //is returned if either of the two elements do not exist
 //or if element1 and element2 all ready belong to the same partition.

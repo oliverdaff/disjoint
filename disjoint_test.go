@@ -130,7 +130,7 @@ func TestMerge(t *testing.T) {
 		t.Run(testname, func(t *testing.T) {
 			val, _ := ds.AreDisjoint(tt.value1, tt.value2)
 			if tt.expected && !val {
-				t.Errorf("Values should be disjoint initialy")
+				t.Errorf("Values should be disjoint initially")
 			}
 			result := ds.Merge(tt.value1, tt.value2)
 			if result != tt.expected {
