@@ -1,7 +1,10 @@
 // Package disjoint contains a UnionFind (Disjoint-set) data structure.
 package disjoint
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 type void struct{}
 
@@ -49,4 +52,13 @@ func (ds *DSet) Add(element interface{}) bool {
 func (ds *DSet) FindPartition(element interface{}) (set, bool) {
 	val, ok := ds.partitions[element]
 	return val, ok
+}
+
+func (ds *DSet) AreDisjoint(element1 interface{}, element2 interface{}) (bool, bool) {
+	p1, ok1 := ds.FindPartition(element1)
+	p2, ok2 := ds.FindPartition(element2)
+	if !ok1 || !ok2 {
+		return false, false
+	}
+	return reflect.DeepEqual(p1, p2), true
 }

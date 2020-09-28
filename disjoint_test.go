@@ -70,11 +70,42 @@ func TestFindPartition(t *testing.T) {
 		{5, false},
 	}
 	for _, tt := range tests {
-		testname := fmt.Sprintf("%#v", tt.expected)
+		testname := fmt.Sprintf("%#v", tt.value)
 		t.Run(testname, func(t *testing.T) {
 			_, ok := ds.FindPartition(tt.value)
 			if ok != tt.expected {
 				t.Errorf("Expected response %t but got %t for element %d", tt.expected, ok, tt.value)
+			}
+
+		})
+	}
+}
+
+func TestAreDisjoint(t *testing.T) {
+	initial := []interface{}{1, 2, 3}
+	ds, _ := NewDSet(initial)
+	var tests = []struct {
+		value1, value2          interface{}
+		expected, expectedError bool
+	}{
+		{1, 1, true, true},
+		{2, 2, true, true},
+		{3, 3, true, true},
+		{4, 1, false, false},
+		{5, 2, false, false},
+	}
+	for _, tt := range tests {
+		testname := fmt.Sprintf("%#v", tt)
+		t.Run(testname, func(t *testing.T) {
+			result, ok := ds.AreDisjoint(tt.value1, tt.value2)
+			if result != tt.expected {
+				t.Errorf("Expected response %t but got %t for element (%d,%d)",
+					tt.expected, result, tt.value1, tt.value2)
+			}
+			if ok != tt.expectedError {
+				t.Errorf("Expected error %t but got %t for element (%d,%d)",
+					tt.expectedError, ok, tt.value1, tt.value2)
+
 			}
 
 		})
