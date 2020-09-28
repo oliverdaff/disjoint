@@ -55,3 +55,28 @@ func TestAdd(t *testing.T) {
 		})
 	}
 }
+
+func TestFindPartition(t *testing.T) {
+	initial := []interface{}{1, 2, 3}
+	ds, _ := NewDSet(initial)
+	var tests = []struct {
+		value    interface{}
+		expected bool
+	}{
+		{1, true},
+		{2, true},
+		{3, true},
+		{4, false},
+		{5, false},
+	}
+	for _, tt := range tests {
+		testname := fmt.Sprintf("%#v", tt.expected)
+		t.Run(testname, func(t *testing.T) {
+			_, ok := ds.FindPartition(tt.value)
+			if ok != tt.expected {
+				t.Errorf("Expected response %t but got %t for element %d", tt.expected, ok, tt.value)
+			}
+
+		})
+	}
+}

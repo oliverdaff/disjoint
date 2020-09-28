@@ -36,3 +36,8 @@ func (ds *DSet) Add(element interface{}) bool {
 	ds.partitions[element] = elements
 	return true
 }
+
+func (ds *DSet) FindPartition(element interface{}) (Set, bool) {
+	val, ok := ds.partitions[element]
+	return val, ok
+}
