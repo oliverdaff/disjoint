@@ -1,5 +1,7 @@
 # Disjoint
 
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/oliverdaff/disjoint)](https://pkg.go.dev/github.com/oliverdaff/disjoint) [![Go Report Card](https://goreportcard.com/badge/github.com/oliverdaff/disjoint)](https://goreportcard.com/report/github.com/oliverdaff/disjoint) [![CircleCI](https://circleci.com/gh/oliverdaff/disjoint.svg?style=shield)](https://circleci.com/gh/oliverdaff/disjoint
+
 Disjoint package is a implementation of a UnionFind ([Disjoint-set](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)).  Each element in the Disjoint-set is part of exactly one (non-overlapping) set.
 
 The DSet supports two methods
