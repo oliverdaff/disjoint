@@ -111,3 +111,36 @@ func TestAreDisjoint(t *testing.T) {
 		})
 	}
 }
+
+func TestMerge(t *testing.T) {
+	initial := []interface{}{1, 2, 3}
+	var tests = []struct {
+		value1, value2 interface{}
+		expected       bool
+	}{
+		{1, 1, false},
+		{5, 2, false},
+		{1, 2, true},
+		{1, 3, true},
+	}
+	for _, tt := range tests {
+		ds, _ := NewDSet(initial)
+		testname := fmt.Sprintf("%#v", tt)
+		t.Run(testname, func(t *testing.T) {
+			val, _ := ds.AreDisjoint(tt.value1, tt.value2)
+			if tt.expected && val {
+				t.Errorf("Values should be disjoint initialy")
+			}
+			result := ds.Merge(tt.value1, tt.value2)
+			if result != tt.expected {
+				t.Errorf("Expected response %t but got %t for element (%d,%d)",
+					tt.expected, result, tt.value1, tt.value2)
+			}
+			val, _ = ds.AreDisjoint(tt.value1, tt.value2)
+			if tt.expected && !val {
+				t.Errorf("Values should be not be disjoint after merge")
+			}
+
+		})
+	}
+}

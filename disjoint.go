@@ -62,3 +62,19 @@ func (ds *DSet) AreDisjoint(element1 interface{}, element2 interface{}) (bool, b
 	}
 	return reflect.DeepEqual(p1, p2), true
 }
+
+func (ds *DSet) Merge(element1 interface{}, element2 interface{}) bool {
+	p1, ok1 := ds.FindPartition(element1)
+	p2, ok2 := ds.FindPartition(element2)
+	if !ok1 || !ok2 {
+		return false
+	}
+	if reflect.DeepEqual(p1, p2) {
+		return false
+	}
+	for k := range p1 {
+		p2[k] = member
+		ds.partitions[k] = p2
+	}
+	return true
+}
