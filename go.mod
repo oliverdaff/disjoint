@@ -1,3 +1,3 @@
-module github.com/oliverdaff/disjointset
+module github.com/oliverdaff/disjoint
 
 go 1.15
