@@ -125,7 +125,7 @@ func TestMerge(t *testing.T) {
 	}
 	for _, tt := range tests {
 		ds, _ := NewDSet(initial)
-		testname := fmt.Sprintf("%#v", tt)
+		testname := fmt.Sprintf("%#v", ds)
 		t.Run(testname, func(t *testing.T) {
 			val, _ := ds.AreDisjoint(tt.value1, tt.value2)
 			if tt.expected && val {
@@ -138,7 +138,7 @@ func TestMerge(t *testing.T) {
 			}
 			val, _ = ds.AreDisjoint(tt.value1, tt.value2)
 			if tt.expected && !val {
-				t.Errorf("Values should be not be disjoint after merge")
+				t.Errorf("Values should be not be disjoint after merge: %#v", ds)
 			}
 
 		})
