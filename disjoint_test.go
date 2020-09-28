@@ -36,8 +36,8 @@ func TestAdd(t *testing.T) {
 		elements []AddExpected
 	}{
 		{[]AddExpected{
-			AddExpected{1, true},
-			AddExpected{1, false},
+			{1, true},
+			{1, false},
 		},
 		},
 	}
