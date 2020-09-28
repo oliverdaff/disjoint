@@ -1,3 +1,4 @@
+// Package disjoint contains a UnionFind (Disjoint-set) data structure.
 package disjoint
 
 import "fmt"
@@ -6,21 +7,29 @@ type void struct{}
 
 var member void
 
-type Set map[interface{}]void
+type set map[interface{}]void
 
+// DSet is a Disjoint Set data structure that keeps track of a set of elements
+// partitioned into a number of disjoint (nonoverlapping) subsets.
+//
+// DSet supports two operations
+//
+// - Find: Returs which subset a particular element is in. Find returns an item that can be
+// compared with other return values to determine it the two elements are in the same subset.
+// - Union: Join two subsets into a single subset.
 type DSet struct {
-	partitions map[interface{}]Set
+	partitions map[interface{}]set
 }
 
 func NewDSet(initialSet []interface{}) (*DSet, error) {
 	dset := DSet{
-		make(map[interface{}]Set),
+		make(map[interface{}]set),
 	}
 	for _, element := range initialSet {
 		if _, ok := dset.partitions[element]; ok {
 			return nil, fmt.Errorf("Element exists in partitions")
 		}
-		elements := make(Set)
+		elements := make(set)
 		elements[element] = member
 		dset.partitions[element] = elements
 	}
@@ -31,13 +40,13 @@ func (ds *DSet) Add(element interface{}) bool {
 	if _, ok := ds.partitions[element]; ok {
 		return false
 	}
-	elements := make(Set)
+	elements := make(set)
 	elements[element] = member
 	ds.partitions[element] = elements
 	return true
 }
 
-func (ds *DSet) FindPartition(element interface{}) (Set, bool) {
+func (ds *DSet) FindPartition(element interface{}) (set, bool) {
 	val, ok := ds.partitions[element]
 	return val, ok
 }
