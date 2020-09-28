@@ -88,9 +88,10 @@ func TestAreDisjoint(t *testing.T) {
 		value1, value2          interface{}
 		expected, expectedError bool
 	}{
-		{1, 1, true, true},
-		{2, 2, true, true},
-		{3, 3, true, true},
+		{1, 1, false, true},
+		{2, 2, false, true},
+		{3, 3, false, true},
+		{1, 3, true, true},
 		{4, 1, false, false},
 		{5, 2, false, false},
 	}
@@ -128,7 +129,7 @@ func TestMerge(t *testing.T) {
 		testname := fmt.Sprintf("%#v", ds)
 		t.Run(testname, func(t *testing.T) {
 			val, _ := ds.AreDisjoint(tt.value1, tt.value2)
-			if tt.expected && val {
+			if tt.expected && !val {
 				t.Errorf("Values should be disjoint initialy")
 			}
 			result := ds.Merge(tt.value1, tt.value2)
@@ -137,7 +138,7 @@ func TestMerge(t *testing.T) {
 					tt.expected, result, tt.value1, tt.value2)
 			}
 			val, _ = ds.AreDisjoint(tt.value1, tt.value2)
-			if tt.expected && !val {
+			if tt.expected && val {
 				t.Errorf("Values should be not be disjoint after merge: %#v", ds)
 			}
 

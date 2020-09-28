@@ -102,8 +102,8 @@ func (ds *DSet) Merge(element1 interface{}, element2 interface{}) bool {
 	return true
 }
 
-//AreDisjoint returns true if element1 and element2 belong to the same partition
-//otherwise it returns false.  If either element does not exist
+//AreDisjoint returns false if element1 and element2 belong to the same partition
+//otherwise it returns true.  If either element does not exist
 //it returns (false, false)
 func (ds *DSet) AreDisjoint(element1 interface{}, element2 interface{}) (bool, bool) {
 	p1, ok1 := ds.FindPartition(element1)
@@ -111,5 +111,5 @@ func (ds *DSet) AreDisjoint(element1 interface{}, element2 interface{}) (bool, b
 	if !ok1 || !ok2 {
 		return false, false
 	}
-	return p1 == p2, true
+	return p1 != p2, true
 }
